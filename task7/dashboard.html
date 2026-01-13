@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Authentication System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Dashboard</h1>
+
+        <p id="welcomeMessage"></p>
+
+        <div class="card">
+            <h3>User Details</h3>
+            <p><strong>Username:</strong> <span id="userName"></span></p>
+            <p><strong>Email:</strong> <span id="userEmail"></span></p>
+        </div>
+
+        <button id="deleteBtn">Delete Account</button>
+        <button id="logoutBtn">Logout</button>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        // Protect dashboard page
+        if (!isLoggedIn()) {
+            window.location.href = "index.html";
+        }
+
+        // Load user info
+        const user = getCurrentUser();
+        document.getElementById("welcomeMessage").textContent =
+            "Welcome, " + user.username + "! 🎉";
+
+        document.getElementById("userName").textContent = user.username;
+        document.getElementById("userEmail").textContent = user.email;
+
+        // Delete button
+        document.getElementById("deleteBtn").addEventListener("click", function() {
+            if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                deleteAccount();
+            }
+        });
+
+        // Logout button
+        document.getElementById("logoutBtn").addEventListener("click", logout);
+    </script>
+
+</body>
+</html>
